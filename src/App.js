@@ -44,7 +44,7 @@ function App() {
           <input
             name="todo"
             type="text"
-            placeholder="新しいTODOを作成してください"
+            placeholder="TODOを入力してください"
             value={todo}
             onChange={handleAddInputChange}
           />
