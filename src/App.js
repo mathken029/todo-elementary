@@ -5,6 +5,7 @@ function App() {
   const [todo, setTodo] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({});
+  const [idCount, setIdCount] = useState(1);
 
   function handleAddInputChange(e) {
     setTodo(e.target.value);
@@ -12,13 +13,14 @@ function App() {
 
   function handleAddFormSubmit(e) {
     e.preventDefault();
-    console.log(todo);
 
     if (todo !== "") {
+      setIdCount(idCount + 1);
       setTodos([
         ...todos,
         {
-          id: new Date(),
+          id: idCount,
+          timestamp: new Date(),
           text: todo.trim(),
         },
       ]);
@@ -53,8 +55,8 @@ function App() {
 
       <ul className="todo-list">
         {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.text}
+          <li key={todo.timestamp}>
+            {todo.id} :{todo.text}
             <button>編集</button>
             <button>削除</button>
           </li>
