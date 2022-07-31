@@ -1,6 +1,22 @@
 import { useState } from "react";
 
 function App() {
+  // # 上から順番に機能追加していきます
+
+  // ## TODO項目へのステータス(未着手、進行中、完了 など)の追加
+  // * まず、プルダウンリストをリストの表示項目に追加します
+  // * 初期値は「未着手」にして、進行中、完了にステータスを切り替えられるようにします
+
+  // ## TODO項目への詳細の追加
+  // * TODOの作成の際に、入力が任意の詳細を入力するためのテキストボックスを追加します
+  // * TODO項目のタイトルと同様にラベルで表示します
+  // * ボタン「編集」を入力した際に詳細も編集できるようにします
+
+  // # 以下は、余裕があれば実施する項目です
+  // ## ソート(ID、期限、ステータスで並べ替え)の追加
+  // ## ステータス変更でスタイル変更（どういう動作かを確認する）
+  // ## どれかのパーツのコンポーネント化
+
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -57,6 +73,11 @@ function App() {
         {todos.map((todo) => (
           <li key={todo.timestamp}>
             {todo.id} :{todo.text}
+            <select name="todoStatus">
+              <option>未着手</option>
+              <option>進行中</option>
+              <option>完了</option>
+            </select>
             <button>編集</button>
             <button>削除</button>
           </li>
