@@ -45,8 +45,6 @@ function App() {
   function handleEditClick(todo) {
     setIsEditing(true);
     setCurrentTodoTitle({ ...todo });
-    console.log(todo.id);
-    console.log(currentTodoTitle.id);
   }
 
   function handleEditTodoTitleInputChange(e) {
