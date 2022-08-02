@@ -1,11 +1,6 @@
 import { useState } from "react";
 
 function App() {
-  // # 上から順番に機能追加していきます
-
-  // ## TODOの削除機能の追加
-  // * 過去のソースコードを参考に追加します
-
   // # 以下は、余裕があれば実施する項目です
   // ## タイトルのみ必須で詳細は任意とする
   // * 現状、タイトル及び詳細の両方が入力されていないとtrim()でエラーになりますが、タイトルのみを入力必須にしたいです
@@ -66,10 +61,7 @@ function App() {
     e.preventDefault();
 
     const updatedItem = todos.map((todo) => {
-      console.log(todo.id);
-      console.log(currentTodoTitle.id);
-
-      if (todo.id === currentTodoTitle.id) {
+      if (todo.timestamp === currentTodoTitle.timestamp) {
         return currentTodoTitle;
       } else {
         return todo;
@@ -77,6 +69,13 @@ function App() {
     });
     setIsEditing(false);
     setTodos(updatedItem);
+  }
+
+  function handleDeleteClick(timestamp) {
+    const removeItem = todos.filter((todo) => {
+      return todo.timestamp !== timestamp;
+    });
+    setTodos(removeItem);
   }
 
   return (
@@ -136,9 +135,9 @@ function App() {
               <option>完了</option>
             </select>
             <button onClick={() => handleEditClick(todo)}>編集</button>
-            {/* <button onClick={() => handleDeleteClick(todo.timestamp)}>
+            <button onClick={() => handleDeleteClick(todo.timestamp)}>
               削除
-            </button> */}
+            </button>
           </li>
         ))}
       </ul>
