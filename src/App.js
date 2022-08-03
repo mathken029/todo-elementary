@@ -2,65 +2,63 @@ import { useState } from "react";
 
 function App() {
   // # 以下は、余裕があれば実施する項目です
-  // ## タイトルのみ必須で詳細は任意とする
-  // * 現状、タイトル及び詳細の両方が入力されていないとtrim()でエラーになりますが、タイトルのみを入力必須にしたいです
-
   // ## ソート(ID、期限、ステータスで並べ替え)の追加
   // ## ステータス変更でスタイル変更（どういう動作かを確認する）
   // ## どれかのパーツのコンポーネント化
 
   const [todos, setTodos] = useState([]);
-  const [todoTitle, setTodoTitle] = useState({});
+  const [todo, setTodo] = useState({ title: "", detail: "" });
   const [isEditing, setIsEditing] = useState(false);
-  const [currentTodoTitle, setCurrentTodoTitle] = useState({});
+  const [currentTodo, setCurrentTodo] = useState({});
   const [idCount, setIdCount] = useState(1);
 
   function handleAddTodoTitleInputChange(e) {
-    setTodoTitle({ ...todoTitle, title: e.target.value });
+    setTodo({ ...todo, title: e.target.value });
   }
 
   function handleAddTodoDetailInputChange(e) {
-    setTodoTitle({ ...todoTitle, detail: e.target.value });
+    setTodo({ ...todo, detail: e.target.value });
   }
 
   function handleAddFormSubmit(e) {
     e.preventDefault();
 
-    if (todoTitle !== "") {
+    if (todo.title !== "") {
       setIdCount(idCount + 1);
       setTodos([
         ...todos,
         {
           id: idCount,
           timestamp: new Date(),
-          title: todoTitle.title.trim(),
-          detail: todoTitle.detail.trim(),
+          title: todo.title.trim(),
+          detail: todo.detail.trim(),
         },
       ]);
+      setTodo({ title: "", detail: "" });
+    } else {
+      alert("タイトルを入力してください");
     }
-
-    setTodoTitle({ ...todoTitle, title: "", detail: "" });
   }
 
   function handleEditClick(todo) {
     setIsEditing(true);
-    setCurrentTodoTitle({ ...todo });
+    setCurrentTodo({ ...todo });
   }
 
   function handleEditTodoTitleInputChange(e) {
-    setCurrentTodoTitle({ ...currentTodoTitle, title: e.target.value });
+    setCurrentTodo({ ...currentTodo, title: e.target.value });
   }
 
   function handleEditTodoDetailInputChange(e) {
-    setCurrentTodoTitle({ ...currentTodoTitle, detail: e.target.value });
+    setCurrentTodo({ ...currentTodo, detail: e.target.value });
   }
 
   function handleEditFormSubmit(e) {
     e.preventDefault();
 
     const updatedItem = todos.map((todo) => {
-      if (todo.timestamp === currentTodoTitle.timestamp) {
-        return currentTodoTitle;
+      if (todo.timestamp === currentTodo.timestamp) {
+        return currentTodo;
       } else {
         return todo;
       }
@@ -85,7 +83,7 @@ function App() {
           <input
             name="editTodoTitle"
             type="text"
-            value={currentTodoTitle.title}
+            value={currentTodo.title}
             onChange={handleEditTodoTitleInputChange}
           />
 
@@ -93,7 +91,7 @@ function App() {
           <input
             name="editTodoTitle"
             type="text"
-            value={currentTodoTitle.detail}
+            value={currentTodo.detail}
             onChange={handleEditTodoDetailInputChange}
           />
 
@@ -107,7 +105,7 @@ function App() {
           <input
             name="AddTodoTitle"
             type="text"
-            value={todoTitle.title}
+            value={todo.title}
             onChange={handleAddTodoTitleInputChange}
           />
 
@@ -115,7 +113,7 @@ function App() {
           <input
             name="AddTodoDetail"
             type="text"
-            value={todoTitle.detail}
+            value={todo.detail}
             onChange={handleAddTodoDetailInputChange}
           />
 
